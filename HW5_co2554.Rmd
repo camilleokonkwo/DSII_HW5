@@ -1,0 +1,123 @@
+---
+title: "Data Science II Homework 5"
+author: "Camille Okonkwo"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    toc: yes
+    toc_depth: 2
+  html_document:
+    df_print: paged
+    toc: yes
+    toc_depth: '2'
+header-includes:
+- \usepackage{fancyhdr}
+- \usepackage{lipsum}
+- \pagestyle{fancy}
+- \fancyhead[R]{\thepage}
+- \fancypagestyle{plain}{\pagestyle{fancy}}
+editor_options: 
+  chunk_output_type: console
+--- 
+\newpage
+
+```{r setup, include=FALSE}
+library(tidyverse)
+
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r, echo = T, message = FALSE, results='hide', warning=FALSE}
+library(tidymodels)
+library(caret)
+library(earth)
+library(pROC)
+library(vip)
+library(MASS)
+set.seed(2)
+```
+\newpage
+
+# Question 1
+
+## Background
+
+In this problem, we will apply support vector machines to predict whether a given car gets high or low gas mileage based on the dataset `auto.csv` (used in Homework 3; see Homework 3 for more details of the dataset). The response variable is `mpg cat`. The predictors are `cylinders`, `displacement`, `horsepower`, `weight`, `acceleration`, `year`, and `origin`. Split the dataset into two parts: training data (70%) and test data (30%).
+
+```{r partition}
+auto = read_csv("data/auto.csv") |> 
+  drop_na() |> 
+  mutate(
+    mpg_cat = as.factor(mpg_cat),
+    mpg_cat = forcats::fct_relevel(mpg_cat, c("low", "high")),
+    cylinders = as.factor(cylinders),
+    origin = as.factor(origin)
+  )
+
+set.seed(2)
+
+# create a random split of 70% training and 30% test data 
+data_split2 = initial_split(data = auto, prop = 0.7)
+
+# partitioned datasets
+training_data2 = training(data_split2)
+testing_data2 = testing(data_split2)
+
+head(training_data2)
+head(testing_data2)
+
+# training data
+x_1 = model.matrix(mpg_cat ~ ., training_data2)[, -1] # matrix of predictors
+head(x_1)
+y_1 = training_data2$mpg_cat # vector of response
+
+# testing data
+x_2 = model.matrix(mpg_cat ~ .,testing_data2)[, -1] # matrix of predictors
+y_2 = testing_data2$mpg_cat # vector of response
+```
+\newpage
+
+## (a) Fit a support vector classifier to the training data. What are the training and test error rates?
+```{r}
+
+```
+\newpage
+
+## (b) Fit a support vector machine with a radial kernel to the training data. What are the training and test error rates?
+```{r}
+
+```
+\newpage
+
+# Question 2
+
+## Background
+
+In this problem, we perform hierarchical clustering on the states using the `USArrests` data in the `ISLR` package. For each of the 50 states in the United States, the dataset contains the number of arrests per 100,000 residents for each of three crimes: `Assault`, `Murder`, and `Rape`. The dataset also contains the percent of the population in each state living in urban areas, `UrbanPop`. The four variables will be used as features for clustering.
+
+```{r}
+
+```
+\newpage
+
+## (a) Using hierarchical clustering with complete linkage and Euclidean distance, cluster the states. Cut the dendrogram at a height that results in three distinct clusters. Which states belong to which clusters?
+```{r}
+
+```
+\newpage
+
+## (b) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
+```{r}
+
+```
+\newpage
+
+## (e) Does scaling the variables change the clustering results? Why? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed?
+```{r}
+
+```
+
+
+
+
+

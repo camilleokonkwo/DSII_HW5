@@ -30,10 +30,8 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 ```{r, echo = T, message = FALSE, results='hide', warning=FALSE}
 library(tidymodels)
 library(caret)
-library(earth)
-library(pROC)
-library(vip)
-library(MASS)
+library(ISLR)
+library(kernlab)
 set.seed(2)
 ```
 \newpage
@@ -57,35 +55,58 @@ auto = read_csv("data/auto.csv") |>
 set.seed(2)
 
 # create a random split of 70% training and 30% test data 
-data_split2 = initial_split(data = auto, prop = 0.7)
+data_split = initial_split(data = auto, prop = 0.7)
 
 # partitioned datasets
-training_data2 = training(data_split2)
-testing_data2 = testing(data_split2)
+training_data = training(data_split)
+testing_data = testing(data_split)
 
-head(training_data2)
-head(testing_data2)
+head(training_data)
+head(testing_data)
 
 # training data
-x_1 = model.matrix(mpg_cat ~ ., training_data2)[, -1] # matrix of predictors
+x_1 = model.matrix(mpg_cat ~ ., training_data)[, -1] # matrix of predictors
 head(x_1)
-y_1 = training_data2$mpg_cat # vector of response
+y_1 = training_data$mpg_cat # vector of response
 
 # testing data
-x_2 = model.matrix(mpg_cat ~ .,testing_data2)[, -1] # matrix of predictors
-y_2 = testing_data2$mpg_cat # vector of response
+x_2 = model.matrix(mpg_cat ~ .,testing_data)[, -1] # matrix of predictors
+y_2 = testing_data$mpg_cat # vector of response
 ```
 \newpage
 
 ## (a) Fit a support vector classifier to the training data. What are the training and test error rates?
 ```{r}
+ctrl = trainControl(method = "cv")
+# kernlab
+set.seed(2)
+svml.fit = train(x_1, y_1,
+                 data = training_data,
+                 method = "svmLinear",
+                 tuneGrid = data.frame(C = exp(seq(-5, 2, len = 50))),
+                 trControl = ctrl)
+plot(svml.fit, highlight = TRUE, xTrans = log)
 
+# what are the training and test error rates?
 ```
 \newpage
 
 ## (b) Fit a support vector machine with a radial kernel to the training data. What are the training and test error rates?
 ```{r}
+svmr.grid = expand.grid(C = exp(seq(1, 7, len = 50)),
+                        sigma = exp(seq(-10, -2, len = 20))) # how to tune?
+# tunes over both cost and sigma
+set.seed(2)
+svmr.fit = train(mpg_cat ~ . , data = training_data,
+                 method = "svmRadialSigma", # what about "svmRadial"? which radial method is best in this situation?
+                 tuneGrid = svmr.grid,
+                 trControl = ctrl)
 
+myCol = rainbow(25)
+myPar = list(superpose.symbol = list(col = myCol),
+             superpose.line = list(col = myCol))
+
+plot(svmr.fit, highlight = TRUE, par.settings = myPar)
 ```
 \newpage
 
@@ -96,7 +117,9 @@ y_2 = testing_data2$mpg_cat # vector of response
 In this problem, we perform hierarchical clustering on the states using the `USArrests` data in the `ISLR` package. For each of the 50 states in the United States, the dataset contains the number of arrests per 100,000 residents for each of three crimes: `Assault`, `Murder`, and `Rape`. The dataset also contains the percent of the population in each state living in urban areas, `UrbanPop`. The four variables will be used as features for clustering.
 
 ```{r}
+data(USArrests)
 
+us_arrests = na.omit(USArrests)
 ```
 \newpage
 

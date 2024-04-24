@@ -32,6 +32,7 @@ library(tidymodels)
 library(caret)
 library(ISLR)
 library(kernlab)
+library(factoextra)
 set.seed(2)
 ```
 \newpage
@@ -97,7 +98,8 @@ svmr.grid = expand.grid(C = exp(seq(1, 7, len = 50)),
                         sigma = exp(seq(-10, -2, len = 20))) # how to tune?
 # tunes over both cost and sigma
 set.seed(2)
-svmr.fit = train(mpg_cat ~ . , data = training_data,
+svmr.fit = train(x_1, y_1, 
+                 data = training_data,
                  method = "svmRadialSigma", # what about "svmRadial"? which radial method is best in this situation?
                  tuneGrid = svmr.grid,
                  trControl = ctrl)
@@ -125,20 +127,64 @@ us_arrests = na.omit(USArrests)
 
 ## (a) Using hierarchical clustering with complete linkage and Euclidean distance, cluster the states. Cut the dendrogram at a height that results in three distinct clusters. Which states belong to which clusters?
 ```{r}
+# complete linkage and euclidean distance
+hc.complete = hclust(dist(us_arrests), method = "complete")
 
+# hierarchical clustering 
+fviz_dend(hc.complete, k = 3,
+          cex = 0.3,
+          palette = "jco",
+          color_labels_by_k = TRUE,
+          rect = TRUE, rect_fill = TRUE, rect_border = "jco",
+          labels_track_height = 2.5)
+
+us.complete = cutree(hc.complete, 3)
+
+# 1st cluster states
+us_arrests[us.complete == 1,]
+
+# 2nd cluster states
+us_arrests[us.complete == 2,]
+
+# 3rd cluster states
+us_arrests[us.complete == 3,]
 ```
 \newpage
 
 ## (b) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
 ```{r}
+# scale the variables to have standard deviation one
+scaled_arrests = scale(us_arrests)
 
+# complete linkage and Euclidean distance
+hc_complete = hclust(dist(scaled_arrests), method = "complete")
+
+# hierarchial clustering dendogram
+fviz_dend(hc_complete, k = 3,
+          cex = 0.3,
+          palette = "jco",
+          color_labels_by_k = TRUE,
+          rect = TRUE, rect_fill = TRUE, rect_border = "jco",
+          labels_track_height = 2.5)
+
+clusters_scaled = cutree(hc_complete, k = 3)
+
+# 1st cluster states
+us_arrests[clusters_scaled == 1,]
+
+# 2nd cluster states
+us_arrests[clusters_scaled == 2,]
+
+# 3rd cluster states
+us_arrests[clusters_scaled == 3,]
 ```
 \newpage
 
 ## (e) Does scaling the variables change the clustering results? Why? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed?
-```{r}
 
-```
+Scaling the variables before hierarchical clustering does affect the clustering results.Hierarchical clustering and methods like complete linkage and Euclidean distance are sensitive to the scale of variables. When variables are on different scales or have different variances, those with larger variances can dominate the distance computations. This can lead to clusters being formed primarily based on the variables with larger scales or variances, rather than considering the overall patterns across all variables equally.In my opinion, scaling the variables before computing inter-observation dissimilarities can be beneficial. t helps to ensure that all variables contribute equally to the distance computations, preventing dominance by variables with larger scales. This can lead to more balanced and meaningful clusters that capture the underlying patterns in the data more accurately.However, it's important to keep in mind there are certain situations scaling is necessary and scaling is not necessary. For example, if the variables are already on similar scales or if the specific research question or domain knowledge suggests that variable scaling should not be applied, then clustering without scaling might be more appropriate.
+
+
 
 
 

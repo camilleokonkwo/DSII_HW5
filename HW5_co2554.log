@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.3.24)  23 APR 2024 22:37
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2024.3.24)  26 APR 2024 10:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -828,22 +828,10 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 File: HW5_co2554_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pd
 f)
 <use HW5_co2554_files/figure-latex/unnamed-chunk-2-1.pdf>
-[5]
+[5] [6] [7]
 File: HW5_co2554_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type pd
 f)
 <use HW5_co2554_files/figure-latex/unnamed-chunk-3-1.pdf>
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 23.10004pt, for example:
-(fancyhdr)                \setlength{\headheight}{23.10004pt}.
-(fancyhdr)                You might also make \topmargin smaller to compensate:
-
-(fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
-
-[6] [7]
-File: HW5_co2554_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pd
-f)
-<use HW5_co2554_files/figure-latex/unnamed-chunk-5-1.pdf>
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 23.10004pt, for example:
@@ -862,6 +850,36 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
 
 [9]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 23.10004pt, for example:
+(fancyhdr)                \setlength{\headheight}{23.10004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
+
+[10] [11]
+File: HW5_co2554_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pd
+f)
+<use HW5_co2554_files/figure-latex/unnamed-chunk-5-1.pdf>
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 23.10004pt, for example:
+(fancyhdr)                \setlength{\headheight}{23.10004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
+
+[12]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 23.10004pt, for example:
+(fancyhdr)                \setlength{\headheight}{23.10004pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
+
+[13]
 File: HW5_co2554_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type pd
 f)
 <use HW5_co2554_files/figure-latex/unnamed-chunk-6-1.pdf>
@@ -873,7 +891,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
 
-[10]
+[14]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 23.10004pt, for example:
@@ -882,7 +900,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
 
-[11]
+[15]
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 23.10004pt, for example:
@@ -891,7 +909,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-11.10004pt}.
 
-[12] (./HW5_co2554.aux)
+[16] (./HW5_co2554.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -904,6 +922,6 @@ Here is how much of TeX's memory you used:
  41470 multiletter control sequences out of 15000+600000
  564504 words of font info for 87 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 90i,12n,121p,1007b,530s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,12n,121p,1007b,564s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on HW5_co2554.pdf (12 pages).
+Output written on HW5_co2554.pdf (16 pages).

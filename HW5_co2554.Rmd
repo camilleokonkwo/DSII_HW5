@@ -88,7 +88,25 @@ svml.fit = train(x_1, y_1,
                  trControl = ctrl)
 plot(svml.fit, highlight = TRUE, xTrans = log)
 
-# what are the training and test error rates?
+# what are the training error rates?
+svml.predict = predict(svml.fit,
+              newdata = x_1)
+
+confusionMatrix(data = svml.predict,
+                reference = y_1)
+# 1 - accuracy
+svml_training_error = 1 - 0.9492
+svml_training_error
+
+# test error
+svml.test = predict(svml.fit,
+              newdata = x_2)
+
+confusionMatrix(data = svml.test,
+                reference = y_2)
+# 1 - accuracy
+svml_test_error = 1 - 0.9492
+svml_test_error
 ```
 \newpage
 
@@ -96,19 +114,42 @@ plot(svml.fit, highlight = TRUE, xTrans = log)
 ```{r}
 svmr.grid = expand.grid(C = exp(seq(1, 7, len = 50)),
                         sigma = exp(seq(-10, -2, len = 20))) # how to tune?
-# tunes over both cost and sigma
+
+# SVM with radial kernel
 set.seed(2)
 svmr.fit = train(x_1, y_1, 
                  data = training_data,
-                 method = "svmRadialSigma", # what about "svmRadial"? which radial method is best in this situation?
+                 method = "svmRadialSigma",
                  tuneGrid = svmr.grid,
                  trControl = ctrl)
-
+svmr.fit$bestTune
 myCol = rainbow(25)
 myPar = list(superpose.symbol = list(col = myCol),
              superpose.line = list(col = myCol))
 
 plot(svmr.fit, highlight = TRUE, par.settings = myPar)
+
+# training error
+svmr.predict = predict(svmr.fit,
+              newdata = x_1)
+
+confusionMatrix(data = svmr.predict,
+                reference = y_1)
+# 1 - accuracy
+svmr_training_error = 1 - 0.938
+svmr_training_error
+
+# test error
+svmr.test = predict(svmr.fit,
+              newdata = x_2)
+
+confusionMatrix(data = svmr.test,
+                reference = y_2)
+# 1 - accuracy
+svmr_test_error = 1 - 0.9576
+svmr_test_error
+
+
 ```
 \newpage
 
@@ -182,7 +223,7 @@ us_arrests[clusters_scaled == 3,]
 
 ## (e) Does scaling the variables change the clustering results? Why? In your opinion, should the variables be scaled before the inter-observation dissimilarities are computed?
 
-Scaling the variables before hierarchical clustering does affect the clustering results.Hierarchical clustering and methods like complete linkage and Euclidean distance are sensitive to the scale of variables. When variables are on different scales or have different variances, those with larger variances can dominate the distance computations. This can lead to clusters being formed primarily based on the variables with larger scales or variances, rather than considering the overall patterns across all variables equally.In my opinion, scaling the variables before computing inter-observation dissimilarities can be beneficial. t helps to ensure that all variables contribute equally to the distance computations, preventing dominance by variables with larger scales. This can lead to more balanced and meaningful clusters that capture the underlying patterns in the data more accurately.However, it's important to keep in mind there are certain situations scaling is necessary and scaling is not necessary. For example, if the variables are already on similar scales or if the specific research question or domain knowledge suggests that variable scaling should not be applied, then clustering without scaling might be more appropriate.
+Scaling the variables before hierarchical clustering does affect the clustering results. Hierarchical clustering and methods like complete linkage and Euclidean distance are sensitive to the scale of variables. When variables are on different scales or have different variances, those with larger variances can dominate the distance computations. This can lead to clusters being formed primarily based on the variables with larger scales or variances, rather than considering the overall patterns across all variables equally.In my opinion, scaling the variables before computing inter-observation dissimilarities can be beneficial. It helps to ensure that all variables contribute equally to the distance computations, preventing dominance by variables with larger scales. This can lead to more balanced and meaningful clusters that capture the underlying patterns in the data more accurately.However, it's important to keep in mind there are certain situations scaling is necessary and scaling is not necessary. For example, if the variables are already on similar scales or if the specific research question or domain knowledge suggests that variable scaling should not be applied, then clustering without scaling might be more appropriate.
 
 
 

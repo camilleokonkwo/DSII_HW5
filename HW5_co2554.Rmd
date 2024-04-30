@@ -218,9 +218,6 @@ The states that belong to cluster one are `r state_names1`. The states that belo
 ```{r Q_2b}
 # scale the variables to have standard deviation one
 scaled_arrests = scale(us_arrests)
-sd(scaled_arrests)
-scaled_arrests = scaled_arrests/ sd(scaled_arrests)
-sd(scaled_arrests) # SD now equals one
 
 # complete linkage and Euclidean distance
 hc_complete = hclust(dist(scaled_arrests), method = "complete")
